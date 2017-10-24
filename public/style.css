@@ -1,0 +1,27 @@
+.label-style
+{
+    color:rgb(18, 19, 18);
+    font-size:20px;
+}
+.material-style
+{
+    color:rgb(217, 255, 0);
+    font-size:20px;
+}
+.rectangele
+{
+    width:800px;
+    height:300px;
+    text-align: center;
+    padding: 20px;
+    border:3px solid rgb(243, 140, 22);
+}
+.rectangele-content
+{
+    position:  absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  
+}

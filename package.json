@@ -1,0 +1,19 @@
+{
+  "name": "galaxymarchant",
+  "version": "1.0.0",
+  "description": "contactlist app",
+  "main": "server.js",
+  "dependencies": {
+    "angular-route": "^1.6.6",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "divya",
+  "license": "ISC"
+}
