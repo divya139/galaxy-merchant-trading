@@ -26,6 +26,7 @@
    var flag = false;
    var submitClick = false;
    var materialMatch = false;
+   var noDuplicates = false;
    $scope.addMaterial = function()
    {
        console.log($scope.material.materialname)
@@ -46,15 +47,46 @@
                 value : $scope.material.value
             };
             console.log(mArray);
-         
-            materialDetails.push(mArray);
-            console.log(materialDetails);
-            $scope.material.materialname = null;
-            $scope.material.value =   null;
-            $scope.inputValidation = "";
-            $scope.errorRoman="";
-            $scope.array = materialDetails;
-           
+            if(materialDetails.length==0)
+            {
+                materialDetails.push(mArray);
+                console.log(materialDetails);
+                $scope.material.materialname = null;
+                $scope.material.value =   null;
+                $scope.inputValidation = "";
+                $scope.errorRoman="";
+                $scope.array = materialDetails;
+
+            }
+            else
+            {
+                materialDetails.forEach(function(element) {
+                    console.log(element.material);
+                    console.log($scope.material.materialname);
+                   
+                    if($scope.material.materialname!= element.material)
+                    {
+                        noDuplicates = true;                    
+                    }
+                    else{                 
+                        noDuplicates = false;
+                    }
+                }, this);
+                if(noDuplicates)
+                {
+                    materialDetails.push(mArray);
+                    console.log(materialDetails);
+                    $scope.material.materialname = null;
+                    $scope.material.value =   null;
+                    $scope.inputValidation = "";
+                    $scope.errorRoman="";
+                    $scope.array = materialDetails;
+                }
+                else
+                {
+                    $scope.inputValidation = "This material is already added";
+                }
+            }      
                
            }
            else{
@@ -172,7 +204,7 @@
        $scope.credits="";
        $scope.array="";
        $scope.material.credites="";
-       $route.reload();
+       window.location.reload();
 
    }
      
