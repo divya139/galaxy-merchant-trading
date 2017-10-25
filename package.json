@@ -15,5 +15,13 @@
     "start": "node server.js"
   },
   "author": "divya",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/divya139/galaxy-merchant-trading.git"
+  },
+  "bugs": {
+    "url": "https://github.com/divya139/galaxy-merchant-trading/issues"
+  },
+  "homepage": "https://github.com/divya139/galaxy-merchant-trading#readme"
 }
