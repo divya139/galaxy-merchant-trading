@@ -16,7 +16,7 @@ app.config(function ($routeProvider, $locationProvider) {
 //httpServices to connect to server
 app.controller('AppCtrl', ['$scope', '$http', '$location', '$route', function ($scope, $http, $location, $route) {
 
-    console.log("Hello world from controller");
+   
     //variable declaration
     var materialDetails = [];
     var romanValues = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
@@ -28,7 +28,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$location', '$route', function ($
     //This function add the material name and value to array called materialDetails in 
     //JSON formate{ material: materialName,value : romanValue}
     $scope.addMaterial = function () {
-        console.log($scope.material.materialname)
+      
         //checking if material name and value are empty
         if ($scope.material.materialname != null && $scope.material.value != null) {
             for (var i = 0; i < romanValues.length; i++) {
@@ -44,11 +44,11 @@ app.controller('AppCtrl', ['$scope', '$http', '$location', '$route', function ($
                     material: $scope.material.materialname,
                     value: $scope.material.value
                 };
-                console.log(mArray);
+             
                 //First insertion of data to materialDetails Array
                 if (materialDetails.length == 0) {
                     materialDetails.push(mArray);
-                    console.log(materialDetails);
+                  
                     //making all input fields empty
                     $scope.material.materialname = null;
                     $scope.material.value = null;
@@ -61,21 +61,21 @@ app.controller('AppCtrl', ['$scope', '$http', '$location', '$route', function ($
                 // if second insertion to materialDetails array then see whether the input material is 
                 //already existing in materDetails 
                 else {
-                    materialDetails.forEach(function (element) {
-                        console.log(element.material);
-                        console.log($scope.material.materialname);
+                    for(var i =0; i< materialDetails.length;i++)
+                    {                    
+                        var element = materialDetails[i];
                         //checking duplicates
                         if ($scope.material.materialname != element.material) {
                             noDuplicates = true;
                         }
                         else {
                             noDuplicates = false;
+                            break;
                         }
-                    }, this);
+                    }
                     //if no duplicates insert the new material and value to materialDetails array
                     if (noDuplicates) {
                         materialDetails.push(mArray);
-                        console.log(materialDetails);
                         $scope.material.materialname = null;
                         $scope.material.value = null;
                         $scope.inputValidation = "";
@@ -107,7 +107,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$location', '$route', function ($
     //This method sends the materialDetails JSON array to server on calling httpPost
     $scope.submit = function () {
 
-        console.log("Submit" + " " + materialDetails);
+       
         $http.post('/conversion', materialDetails).then(successCallback, errorCallback);
 
         function successCallback(response) {
@@ -124,7 +124,7 @@ app.controller('AppCtrl', ['$scope', '$http', '$location', '$route', function ($
         //because user cannot click getCredits button with out submitting the data
 
         submitClick = true;
-        
+
         //disabling add button and submit button to avoid invalid data to key in by user.
         document.getElementById("add").disabled = true;
         document.getElementById("submit").disabled = true;
@@ -143,19 +143,19 @@ app.controller('AppCtrl', ['$scope', '$http', '$location', '$route', function ($
                
                 // checking whether the materials in question is equal, to already added materials to materialDetails
 
-                console.log(materialDetails.indexOf(res[i]));
-
-
-                if (materialDetails.indexOf(res[i])) {
-
-                    materialMatch = true;
-                }
-                else {
-                    materialMatch = false;
-                }
-                console.log(materialMatch);
-
-
+               
+                for (var index = 0; index < materialDetails.length; ++index) {
+                    
+                     var element = materialDetails[index];
+                    
+                     if(element.material == res[i]){
+                       materialMatch = true;
+                       break;
+                     }
+                     else{
+                         materialMatch = false;
+                     }
+                    }
 
             }
             //if equal, send the data to server
@@ -174,11 +174,11 @@ app.controller('AppCtrl', ['$scope', '$http', '$location', '$route', function ($
                 function error(response) {
                     console.log ("some thing went wrong!");
                 }
-                console.log(res);
+              
                 //httpGet method to get calculated credits
                 $http.get('/getCredits').then(successCallback, errorCallback);
                 function successCallback(response) {
-                    console.log(response);
+                   
                     //if credits is 0 invalid questio
                     if (response.data != 0) {
                     $scope.credits = inputString + " " + "is " + response.data;

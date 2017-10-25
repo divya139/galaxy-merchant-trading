@@ -56,7 +56,7 @@ app.post('/conversion', function (req, res) {
 //service to convert question coming from controller to Romanvalue.Example if prok is L and question is pork pork
 // the roman value for question pork pork is LL.
 app.post('/credits', function (req, res) {
-    console.log(req.body);
+   
 
     (req.body).forEach(function (element) {
 
@@ -71,8 +71,7 @@ app.post('/credits', function (req, res) {
 
     }, this);
 
-    console.log(resultArray)
-    console.log(stringres.length);
+   
     for (var i = 0; i < stringres.length; i++) {
         //applying business logic to calculate .
         //The symbols "I", "X", "C", and "M" can be repeated three times in succession, but no more.
@@ -80,34 +79,31 @@ app.post('/credits', function (req, res) {
         //"D", "L", and "V" can never be repeated.
         if (stringres.charAt(i) == 'X' || stringres.charAt(i) == 'I' || stringres.charAt(i) == 'M' || stringres.charAt(i) == 'C') {
             count1 = countRun(stringres, stringres.charAt(i))
-            console.log("count1 " + count1);
+           
             counter = countCharacters(stringres, stringres.charAt(i))
-            console.log(counter);
+           
             if (count1 == 3 && counter == 4) {
 
-                console.log("counter " + counter);
+               
                 if (counter == 4) {
                     //spliting if character is 'X','I','M','C'
                     splitArray = stringres.split(stringres.charAt(i));
-                    console.log("char " + stringres.charAt(i));
+                   
                     for (var j = 0; j < splitArray.length; j++) {
-                        console.log("stringres " + stringres.charAt(i));
+                       
                         if (splitArray[j].length == 1) {
-                            console.log(j + " " + splitArray[j]);
+                           
                             var char = splitArray[j];
-                            console.log(char);
-                            console.log("-----------" + mArray.lastIndexOf(char));
+                           
 
                             var mArrayIndex = mArray.indexOf(char);
-                            console.log(mArrayIndex);
-                            console.log(parseInt(vArray[mArrayIndex]))
-                            console.log(parseInt(vArray[mArray.lastIndexOf(stringres.charAt(i))]))
+                          
 
 
                             //Logic for checking incase if there is 4 time repeated characters 
                             //there should be small value between 3rd and 4th character.task2
                             if (parseInt(vArray[mArrayIndex]) <= parseInt(vArray[mArray.lastIndexOf(stringres.charAt(i))])) {
-                                console.log(splitArray[j]);
+                              
                                 count1 = 3;
                                 continue;
                             }
@@ -137,7 +133,7 @@ app.post('/credits', function (req, res) {
             //Logic for "D", "L", and "V" can never be repeated.  
             // count2 = countRun(stringres, stringres.charAt(i))
             count2 = countCharacters(stringres, stringres.charAt(i))
-            console.log("count2 " + count2);
+          
             if (count2 >= 2)
                 break;
 
@@ -148,12 +144,12 @@ app.post('/credits', function (req, res) {
 
             if (stringres.charAt(i) == data) {
                 //validating occurences of characters and converting roman string to numerical string.task2
-                console.log('data in mArray '+data);
+              
                 if (stringres.charAt(i) == 'X' || stringres.charAt(i) == 'I' || stringres.charAt(i) == 'M' || stringres.charAt(i) == 'C') {
 
                     if (count1 <= 3 && count2 < 2) {
                         stringCredits = stringCredits + vArray[mArray.lastIndexOf(data)] + " ";
-                        console.log(stringCredits);
+                      
 
                     }
                     else {
@@ -180,8 +176,7 @@ app.post('/credits', function (req, res) {
         }, this);
     }
 
-    console.log(stringres);
-    console.log(stringCredits);
+   
 
     //calling calculateSum function  to calculate the total crdits for roman string.
     calculateSum();
@@ -195,12 +190,10 @@ function calculateSum() {
     for (var i = 0; i < creditsArray.length;) {
         //calculating business logic task1 and task3
         //logic for task 1
-        if (creditsArray[i] < creditsArray[i + 1]) {
+       
+        if (parseInt(creditsArray[i]) < parseInt(creditsArray[i + 1])) {
 
-            console.log(creditsArray[i + 1]);
-
-            console.log(vArray.lastIndexOf(parseInt(creditsArray[i + 1])));
-            console.log(mArray[vArray.lastIndexOf(parseInt(creditsArray[i + 1]))]);
+            
             if (mArray[vArray.lastIndexOf(parseInt(creditsArray[i]))] == 'I') {
                 //logic for task 3
                 if (mArray[vArray.lastIndexOf(parseInt(creditsArray[i + 1]))] == 'V' || mArray[vArray.lastIndexOf(parseInt(creditsArray[i + 1]))] == 'X') {
@@ -228,7 +221,7 @@ function calculateSum() {
             else if (mArray[vArray.lastIndexOf(parseInt(creditsArray[i]))] == 'C') {
                 if (mArray[vArray.lastIndexOf(parseInt(creditsArray[i + 1]))] == 'D' || mArray[vArray.lastIndexOf(parseInt(creditsArray[i + 1]))] == 'M') {
                     sum = (sum - 0) + (parseInt(creditsArray[i + 1]) - parseInt(creditsArray[i]));
-                    // console.log(sum);
+                   
                     i = i + 2;
                 }
                 else {
@@ -238,6 +231,7 @@ function calculateSum() {
 
             }
             else if (mArray[vArray.lastIndexOf(parseInt(creditsArray[i]))] == 'V' || mArray[vArray.lastIndexOf(parseInt(creditsArray[i]))] == 'L' || mArray[vArray.lastIndexOf(parseInt(creditsArray[i]))] == 'D') {
+               
                 sum = 0;
                 break;
 
@@ -245,13 +239,13 @@ function calculateSum() {
 
         }
         else {
-            //   console.log(parseInt(creditsArray[i]))
+          
             sum = (sum - 0) + parseInt(creditsArray[i] - 0);
-            // console.log(sum);
+         
             i = i + 1;
         }
     }
-    console.log(sum);
+  
     //empty all variables
     stringres = "";
     stringCredits = "";
@@ -264,7 +258,7 @@ app.get('/getCredits', function (req, res) {
     res.json(sum);
     sum = 0;
 
-    console.log(resultArray);
+  
 
 })
 
@@ -272,7 +266,7 @@ app.get('/getCredits', function (req, res) {
 //clearing the resultArray which stores the material data
 app.post('/reset', function (req, res) {
     resultArray.splice(0);
-    console.log('reset ' + resultArray.length);
+   
 });
 
 
